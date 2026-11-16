@@ -6,6 +6,16 @@ temperature, edit the four heat profiles, load ready-made profile templates,
 and change lights, stealth mode, ready mode and the device name. It has no
 build step and no dependencies.
 
+## Demo
+
+<p align="center">
+  <a href="https://github.com/magikh0e/puffco-peak-control/blob/main/.github/media/peak-pro-control-reel.mp4">
+    <img src=".github/media/reel-poster.jpg" width="320" alt="Peak Pro Control demo reel — click to play">
+  </a>
+</p>
+
+<p align="center"><em>A 47-second walkthrough. Click to play.</em></p>
+
 ## Library: templates and saved profiles
 
 The Peak Pro holds four heat profiles. The Library tab keeps more than that in
