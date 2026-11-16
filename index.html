@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Peak Pro Control</title>
+  <meta name="description" content="Control a Puffco Peak Pro from the browser over Web Bluetooth.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <header class="bar">
+    <div class="bar-id">
+      <h1 id="device-title">Peak Pro</h1>
+      <p id="conn-status" class="conn" data-state="idle" aria-live="polite">Not connected</p>
+    </div>
+    <div class="bar-actions">
+      <div class="unit-toggle" role="group" aria-label="Temperature unit">
+        <button type="button" data-unit="F" aria-pressed="true">°F</button>
+        <button type="button" data-unit="C" aria-pressed="false">°C</button>
+      </div>
+      <button type="button" id="btn-disconnect" class="btn-quiet" hidden>Disconnect</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="stage" aria-label="Heater">
+      <div class="ring-wrap" id="ring-wrap" data-phase="off">
+        <div class="ring-glow" aria-hidden="true"></div>
+        <svg class="ring" viewBox="0 0 240 240" aria-hidden="true">
+          <circle class="ring-track" cx="120" cy="120" r="104"/>
+          <circle class="ring-progress" id="ring-progress" cx="120" cy="120" r="104" pathLength="1000"/>
+        </svg>
+        <div class="ring-center">
+          <div id="ring-idle-msg" class="ring-cta">
+            <button type="button" id="btn-connect" class="btn-primary">Connect</button>
+          </div>
+          <div id="ring-readout" class="readout" hidden>
+            <p class="temp" aria-live="off"><span id="temp-now">--</span><span class="deg" id="temp-unit">°F</span></p>
+            <p class="phase" id="phase-label" aria-live="polite">Idle</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="stage-side">
+        <div id="intro" class="intro">
+          <h2>Control your Peak Pro from this page</h2>
+          <p>Close the Puffco app on your phone first: the Peak Pro only accepts one Bluetooth connection at a time.</p>
+          <p>The first time you connect from this computer, put the device in pairing mode: hold the button until the logo glows blue. It powers off and back on before the blue light appears. Then press Connect.</p>
+          <ol id="connect-progress" class="progress-log" aria-live="polite" aria-label="Connection progress" hidden></ol>
+          <p id="bt-unsupported" class="warn" hidden>This browser can't use Bluetooth. Open the page in Chrome or Edge on a computer or Android phone.</p>
+          <div id="connect-error" class="connect-error" role="alert" hidden>
+            <p class="warn" id="connect-error-title"></p>
+            <ol id="connect-error-steps"></ol>
+            <div class="inline">
+              <button type="button" id="btn-copy-details" class="btn-quiet">Copy technical details</button>
+            </div>
+            <details>
+              <summary>Technical details</summary>
+              <pre id="connect-error-log"></pre>
+            </details>
+          </div>
+        </div>
+
+        <div id="controls" class="controls" hidden>
+          <fieldset class="profile-pick">
+            <legend>Heat profile</legend>
+            <div class="profile-dots" id="profile-dots"></div>
+          </fieldset>
+
+          <div class="action-row">
+            <button type="button" id="btn-start" class="btn-primary btn-heat">Start heating</button>
+            <button type="button" id="btn-stop" class="btn-stop" hidden>Stop</button>
+          </div>
+          <div class="action-row adjust" id="adjust-row" hidden>
+            <button type="button" id="btn-add-temp" class="btn-quiet">+10°F</button>
+            <button type="button" id="btn-add-time" class="btn-quiet">+10 s</button>
+          </div>
+
+          <dl class="vitals">
+            <div><dt>Target</dt><dd id="v-target">--</dd></div>
+            <div><dt id="v-time-label">Time left</dt><dd id="v-time">--</dd></div>
+            <div><dt>Battery</dt><dd id="v-battery">--</dd></div>
+            <div><dt>Chamber</dt><dd id="v-chamber">--</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <nav class="tabs" id="tabs" role="tablist" aria-label="Sections" hidden>
+      <button type="button" role="tab" aria-selected="true" aria-controls="panel-profiles" id="tab-profiles">Profiles</button>
+      <button type="button" role="tab" aria-selected="false" aria-controls="panel-device" id="tab-device">Device</button>
+      <button type="button" role="tab" aria-selected="false" aria-controls="panel-stats" id="tab-stats">Stats</button>
+      <button type="button" role="tab" aria-selected="false" aria-controls="panel-log" id="tab-log">Protocol log</button>
+    </nav>
+
+    <section class="panel" id="panel-profiles" role="tabpanel" aria-labelledby="tab-profiles" hidden>
+      <p class="panel-note">Changes are written to the device when you press Save on a profile.</p>
+      <div class="profile-list" id="profile-list"></div>
+    </section>
+
+    <section class="panel" id="panel-device" role="tabpanel" aria-labelledby="tab-device" hidden>
+      <form class="settings" id="settings-form" onsubmit="return false">
+        <div class="setting">
+          <label for="s-name">Device name</label>
+          <div class="inline">
+            <input id="s-name" type="text" maxlength="29" autocomplete="off">
+            <button type="button" id="s-name-save" class="btn-quiet">Rename</button>
+          </div>
+        </div>
+        <div class="setting">
+          <label for="s-brightness">Light brightness <output id="s-brightness-out"></output></label>
+          <input id="s-brightness" type="range" min="15" max="100" step="1">
+        </div>
+        <div class="setting switch">
+          <label for="s-stealth">Stealth mode</label>
+          <input id="s-stealth" type="checkbox" role="switch">
+          <p class="hint">Dims the lights while heating.</p>
+        </div>
+        <div class="setting">
+          <label for="s-ready">Ready mode</label>
+          <select id="s-ready">
+            <option value="-1">Off</option>
+            <option value="0">Profile 1</option>
+            <option value="1">Profile 2</option>
+            <option value="2">Profile 3</option>
+            <option value="3">Profile 4</option>
+          </select>
+        </div>
+        <div class="setting">
+          <label for="s-lantern-color">Mood light</label>
+          <div class="inline">
+            <input id="s-lantern-color" type="color" value="#5aa7ff">
+            <button type="button" id="s-lantern-on" class="btn-quiet">Turn on</button>
+            <button type="button" id="s-lantern-off" class="btn-quiet">Turn off</button>
+          </div>
+          <p class="hint" id="s-lantern-status"></p>
+        </div>
+        <div class="setting danger">
+          <label>Power</label>
+          <button type="button" id="s-power-off" class="btn-stop">Turn off device</button>
+          <p class="hint">The device disconnects. Press its button to wake it again.</p>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel" id="panel-stats" role="tabpanel" aria-labelledby="tab-stats" hidden>
+      <dl class="stats" id="stats"></dl>
+      <button type="button" id="btn-refresh-stats" class="btn-quiet">Refresh</button>
+    </section>
+
+    <section class="panel" id="panel-log" role="tabpanel" aria-labelledby="tab-log" hidden>
+      <div class="log-tools">
+        <label class="check"><input type="checkbox" id="log-poll"> Show polling reads</label>
+        <button type="button" id="btn-copy-log" class="btn-quiet">Copy log</button>
+        <button type="button" id="btn-clear-log" class="btn-quiet">Clear</button>
+      </div>
+      <ol class="log" id="log"></ol>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script type="module" src="js/app.js?v=10"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+# Kept local, not published (owner's decision)
+tools/
+docs/puffco-field-spec.json
+
+# Editor / assistant / Python local files
+.claude/
+__pycache__/
+*.pyc
