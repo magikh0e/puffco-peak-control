@@ -96,6 +96,10 @@ button, input, select { font: inherit; color: inherit; }
 .conn[data-state="on"]::before { background: var(--glow); box-shadow: 0 0 0 3px var(--glow-soft); }
 .conn[data-state="error"]::before { background: var(--alarm); }
 
+.bar-brand { display: flex; align-items: center; gap: 0.7rem; min-width: 0; }
+.bar-logo { width: 2.5rem; height: 2.5rem; flex: none; display: block; }
+.bar-id { min-width: 0; }
+
 .bar-actions { display: flex; align-items: center; gap: 0.75rem; }
 
 .unit-toggle {
@@ -426,7 +430,7 @@ input[type="checkbox"] { width: 1.2rem; height: 1.2rem; accent-color: var(--glow
   .profile-dots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .action-row .btn-heat, .action-row .btn-stop { flex: 1 1 100%; }
   .bar { flex-wrap: wrap; row-gap: 0.75rem; padding-bottom: 0.5rem; }
-  .bar-id { flex: 1 1 100%; }
+  .bar-brand { flex: 1 1 100%; }
   .bar-actions { flex: 1 1 100%; justify-content: space-between; }
   .bar h1 { font-size: var(--step-1); }
 }
