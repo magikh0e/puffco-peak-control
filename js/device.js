@@ -1,6 +1,6 @@
 // High-level Puffco device API on top of the LORAX transport.
 // Command sequences mirror the official app (Puffco Connect 3.13.47).
-import { FIELDS } from './fields.js?v=10';
+import { FIELDS } from './fields.js?v=11';
 
 export const MODE = {
   masterOff: 0, sleep: 1, idle: 2, tempSelectBegin: 3, tempSelectStop: 4,
@@ -179,8 +179,9 @@ export class PuffcoDevice {
       name: 'Name', tempC: 'Temp', timeSec: 'Time', color: 'ColorApi2',
       boostTempC: 'BoostTempDelta', boostTimeSec: 'BoostTimeDelta',
     };
+    // Fields this firmware doesn't have (older ones lack boost) are skipped.
     for (const [k, v] of Object.entries(patch)) {
-      if (v === undefined || !map[k]) continue;
+      if (v == null || !map[k] || !this.has(`heatCycle${i}${map[k]}`)) continue;
       await this.write(`heatCycle${i}${map[k]}`, v);
     }
   }

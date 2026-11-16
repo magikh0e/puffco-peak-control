@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/app.css?v=2">
+  <link rel="stylesheet" href="css/app.css?v=3">
 </head>
 <body>
   <header class="bar">
@@ -95,14 +95,19 @@
 
     <nav class="tabs" id="tabs" role="tablist" aria-label="Sections" hidden>
       <button type="button" role="tab" aria-selected="true" aria-controls="panel-profiles" id="tab-profiles">Profiles</button>
+      <button type="button" role="tab" aria-selected="false" aria-controls="panel-library" id="tab-library">Library</button>
       <button type="button" role="tab" aria-selected="false" aria-controls="panel-device" id="tab-device">Device</button>
       <button type="button" role="tab" aria-selected="false" aria-controls="panel-stats" id="tab-stats">Stats</button>
       <button type="button" role="tab" aria-selected="false" aria-controls="panel-log" id="tab-log">Protocol log</button>
     </nav>
 
     <section class="panel" id="panel-profiles" role="tabpanel" aria-labelledby="tab-profiles" hidden>
-      <p class="panel-note">Changes are written to the device when you press Save on a profile.</p>
+      <p class="panel-note">Changes are written to the device when you press Save on a profile. Ready-made profiles and the ones you've kept are on the Library tab.</p>
       <div class="profile-list" id="profile-list"></div>
+    </section>
+
+    <section class="panel" id="panel-library" role="tabpanel" aria-labelledby="tab-library" hidden>
+      <div class="library" id="library"></div>
     </section>
 
     <section class="panel" id="panel-device" role="tabpanel" aria-labelledby="tab-device" hidden>
@@ -180,6 +185,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
-  <script type="module" src="js/app.js?v=10"></script>
+  <script type="module" src="js/app.js?v=11"></script>
 </body>
 </html>

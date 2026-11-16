@@ -1,9 +1,10 @@
-import { LoraxClient, requestOptions } from './lorax.js?v=10';
-import { PuffcoDevice, LIMITS, LUMA, cToF, fToC } from './device.js?v=10';
+import { LoraxClient, requestOptions } from './lorax.js?v=11';
+import { PuffcoDevice, LIMITS, LUMA, cToF, fToC } from './device.js?v=11';
+import { renderLibrary, syncLibrary, keepProfile, profileSpec } from './library.js?v=11';
 
 const $ = (id) => document.getElementById(id);
 const DEMO = new URLSearchParams(location.search).has('demo');
-const BUILD = '2026-11-15.10';
+const BUILD = '2026-11-16.11';
 
 const store = {
   get(k, d) { try { return localStorage.getItem(k) ?? d; } catch { return d; } },
@@ -106,7 +107,7 @@ async function connect() {
   try {
     setConn('busy', 'Choosing a device');
     if (DEMO) {
-      const { requestMockDevice } = await import('./mock-device.js?v=10');
+      const { requestMockDevice } = await import('./mock-device.js?v=11');
       const mode = new URLSearchParams(location.search).get('demo');
       device = await requestMockDevice({
         unpaired: mode === 'unpaired', needsBond: ['pairing', 'stuck', 'notpaired'].includes(mode),
@@ -152,6 +153,7 @@ async function connect() {
     showConnectedUI(true);
     renderProfilePicker();
     renderProfileEditors();
+    renderLib();
     await loadSettings();
     poll();
   } catch (err) {
@@ -340,6 +342,7 @@ function renderLive() {
     b.setAttribute('aria-checked', String(Number(b.dataset.index) === activeProfileIndex()));
     b.disabled = heating;
   }
+  syncLibrary($('library'), canWriteProfiles(), writeBlockedReason());
 }
 
 function renderProfilePicker() {
@@ -416,7 +419,12 @@ function renderProfileEditors() {
     if (p.color?.kind === 'table') colorF.querySelector('label').textContent = 'Light color (currently an animation)';
 
     const save = document.createElement('div'); save.className = 'save-row';
-    save.innerHTML = '<span class="saved" aria-live="polite"></span><button type="submit" class="btn-quiet">Save</button>';
+    save.innerHTML = '<span class="saved" aria-live="polite"></span><button type="button" class="btn-quiet btn-small">Copy to My profiles</button><button type="submit" class="btn-quiet">Save</button>';
+    save.querySelector('button[type="button"]').addEventListener('click', () => {
+      const r = keepProfile(profileSpec(state.profiles[i]));
+      toast(r === 'added' ? 'Copied to My profiles (Library tab)' : r === 'duplicate' ? 'Already in My profiles' : 'Nothing to copy');
+      renderLib();
+    });
 
     card.append(h, nameF, row1, row2, colorF, save);
     card.addEventListener('submit', (e) => { e.preventDefault(); saveProfile(i, card); });
@@ -467,9 +475,72 @@ async function saveProfile(i, card) {
     state.profiles[i] = await state.dev.readProfile(i);
     renderProfilePicker();
     renderProfileEditors();
+    renderLib();
     toast(`Saved ${state.profiles[i].name || `profile ${i + 1}`}`);
   });
   if (status.isConnected && status.textContent === 'Saving') status.textContent = '';
+}
+
+// ---------- library (templates and My profiles) ----------
+function canWriteProfiles() { return state.connected && !isHeating() && !state.libBusy; }
+function writeBlockedReason() {
+  if (!state.connected) return 'Connect to load profiles onto the device.';
+  if (isHeating()) return 'Stop heating to load profiles onto the device.';
+  if (state.libBusy) return 'Writing to the device…';
+  return null;
+}
+
+function renderLib() {
+  if (!state.connected) return;
+  renderLibrary($('library'), {
+    profiles: state.profiles,
+    canWrite: canWriteProfiles(),
+    why: writeBlockedReason(),
+    unit: state.unit,
+    fmtTemp, tempOut, tempIn, toast,
+    load: (i, spec) => writeSlots([[i, spec]]),
+    loadSet: (specs) => writeSlots(specs.map((s, i) => [i, s])),
+    refresh: renderLib,
+  });
+}
+
+// Writes library profiles into device slots. Each profile it replaces is kept
+// in My profiles first, unless it's already there or matches a template.
+async function writeSlots(pairs) {
+  if (!canWriteProfiles()) { toast(writeBlockedReason() ?? 'Not ready', 'error'); return; }
+  state.libBusy = true;
+  renderLib();
+  let kept = 0;
+  let done = 0;
+  try {
+    // Keep the replaced ones in reverse, so profile 1 ends up first in the list.
+    for (const [i] of [...pairs].reverse()) if (keepProfile(profileSpec(state.profiles[i]), { auto: true }) === 'added') kept++;
+    for (const [i, spec] of pairs) {
+      const old = state.profiles[i];
+      const patch = {
+        name: spec.name.slice(0, LIMITS.profileNameMax), tempC: spec.tempC, timeSec: spec.timeSec,
+        boostTempC: spec.boostTempC, boostTimeSec: spec.boostTimeSec,
+      };
+      if (spec.color && old?.color && ['rgb', 'table', 'none'].includes(old.color.kind)) {
+        patch.color = { ...spec.color, lumaAnim: old.color.kind === 'rgb' ? old.color.lumaAnim : LUMA.preserve };
+      }
+      await state.dev.writeProfile(i, patch);
+      state.profiles[i] = await state.dev.readProfile(i);
+      done++;
+    }
+    if (pairs.length === 1) state.selected = pairs[0][0];
+    const what = pairs.length === 1 ? `"${pairs[0][1].name}" into profile ${pairs[0][0] + 1}` : 'all four profiles';
+    toast(`Loaded ${what}${kept ? `. ${kept === 1 ? 'The profile it replaced is' : `The ${kept} profiles it replaced are`} in My profiles` : ''}`);
+  } catch (err) {
+    console.error(err);
+    logLine('err', err.message || String(err));
+    toast(`${done ? `Loaded ${done} of ${pairs.length}, then: ` : ''}${err.message || err}`, 'error');
+  } finally {
+    state.libBusy = false;
+    renderProfilePicker();
+    renderProfileEditors();
+    renderLib();
+  }
 }
 
 // ---------- settings ----------
@@ -575,7 +646,7 @@ function setUnit(u) {
   state.unit = u;
   store.set('peak.unit', u);
   for (const b of document.querySelectorAll('.unit-toggle button')) b.setAttribute('aria-pressed', String(b.dataset.unit === u));
-  if (state.connected) { renderProfilePicker(); renderProfileEditors(); }
+  if (state.connected) { renderProfilePicker(); renderProfileEditors(); renderLib(); }
   renderLive();
 }
 
@@ -586,6 +657,7 @@ function selectTab(tab) {
     t.tabIndex = on ? 0 : -1;
     $(t.getAttribute('aria-controls')).hidden = !on;
   }
+  if (tab.id === 'tab-library') renderLib();
   if (tab.id === 'tab-stats') act(loadStats);
   if (tab.id === 'tab-device') act(loadSettings);
 }
