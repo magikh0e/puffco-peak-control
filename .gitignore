@@ -6,3 +6,6 @@ docs/puffco-field-spec.json
 .claude/
 __pycache__/
 *.pyc
+
+# Promo video renders (rebuilt by tools/promo-*.py)
+promo/
