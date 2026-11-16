@@ -1,0 +1,96 @@
+name: Report a problem
+description: Something in Peak Pro Control isn't working right.
+title: "[problem] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file this.
+
+        Peak Pro Control is an unofficial, community Web Bluetooth app — not
+        affiliated with Puffco. Please only use it with a device you own.
+
+        Web Bluetooth runs in **Chromium browsers** (Chrome, Edge, Opera,
+        Brave) on desktop and Android. **iOS/Safari and Firefox don't support
+        it**, so problems there can't be fixed here.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What went wrong, and what did you expect instead?
+      placeholder: I tapped Connect, picked my Peak Pro, and…
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: What you did, in order, so it can be reproduced.
+      placeholder: |
+        1. Open the app
+        2. Connect to the device
+        3. …
+    validations:
+      required: true
+
+  - type: dropdown
+    id: demo
+    attributes:
+      label: Does it also happen in demo mode?
+      description: >-
+        Add `?demo` to the URL (puffco.magikh0e.com/?demo) to run against the
+        built-in mock device — no hardware needed. This tells me whether it's
+        the interface or the Bluetooth link.
+      options:
+        - "Haven't tried"
+        - "Yes — ?demo reproduces it (no device needed)"
+        - "No — only with a real device connected"
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser & version
+      description: e.g. Chrome 131, Edge 130, Brave 1.73
+      placeholder: Chrome 131 on desktop
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system / device
+      placeholder: Windows 11 · Android 14 (Pixel 7) · macOS 15
+    validations:
+      required: true
+
+  - type: input
+    id: firmware
+    attributes:
+      label: Device & firmware (if known)
+      description: Model and firmware version, if a device was connected. The app shows firmware once paired.
+      placeholder: Peak Pro, fw …
+
+  - type: textarea
+    id: console
+    attributes:
+      label: Console output
+      description: >-
+        Open DevTools (F12) → Console, reproduce the problem, and paste
+        anything in red. For a Bluetooth bug this is the single most useful
+        thing you can include.
+      render: shell
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I'm using this with a Peak Pro I own.
+          required: true
+        - label: I searched existing issues and didn't find a duplicate.
+          required: true
