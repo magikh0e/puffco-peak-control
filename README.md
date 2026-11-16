@@ -8,13 +8,9 @@ build step and no dependencies.
 
 ## Demo
 
-<p align="center">
-  <a href="https://puffco.magikh0e.com/media/peak-pro-control-reel.mp4">
-    <img src="media/reel-poster.jpg" width="320" alt="Peak Pro Control demo reel — click to play">
-  </a>
-</p>
+https://github.com/user-attachments/assets/8b361ceb-9b36-45df-933a-c7a38f72fa06
 
-<p align="center"><em>A 47-second walkthrough. Click to play.</em></p>
+*A 47-second walkthrough.*
 
 ## Library: templates and saved profiles
 
