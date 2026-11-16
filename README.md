@@ -9,8 +9,8 @@ build step and no dependencies.
 ## Demo
 
 <p align="center">
-  <a href="https://github.com/magikh0e/puffco-peak-control/blob/main/.github/media/peak-pro-control-reel.mp4">
-    <img src=".github/media/reel-poster.jpg" width="320" alt="Peak Pro Control demo reel — click to play">
+  <a href="https://puffco.magikh0e.com/media/peak-pro-control-reel.mp4">
+    <img src="media/reel-poster.jpg" width="320" alt="Peak Pro Control demo reel — click to play">
   </a>
 </p>
 
