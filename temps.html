@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dab Temperature Guide &middot; Peak Pro Control</title>
+  <meta name="description" content="Boiling points of common cannabis terpenes and cannabinoids, and the usual heat ranges for each dab style, from low-temp to hot.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --porcelain: #e9ecea;
+      --glaze: #f7f8f6;
+      --graphite: #22272b;
+      --ash: #5f676b;
+      --hairline: #cdd3d1;
+      --track: #d7dcda;
+      --alarm: #b8392a;
+      --amber: #e8943c;
+
+      /* heat ramp, cool -> hot */
+      --c-low: #e8a94c;
+      --c-mid: #df7f3c;
+      --c-std: #cf5a33;
+      --c-hot: #b8392a;
+
+      --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+      --font-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+
+      --step--1: 0.875rem;
+      --step-0: 1rem;
+      --step-1: 1.25rem;
+      --step-2: 1.6rem;
+      --step-3: clamp(2.1rem, 6vw, 3rem);
+
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --porcelain: #1a1d1f;
+        --glaze: #24282a;
+        --graphite: #e6e9e7;
+        --ash: #9aa3a6;
+        --hairline: #3a4043;
+        --track: #33393c;
+        --alarm: #f07a68;
+        --c-low: #e8b25a;
+        --c-mid: #e2894a;
+        --c-std: #d9693f;
+        --c-hot: #e2553f;
+        color-scheme: dark;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--porcelain);
+      color: var(--graphite);
+      font-family: var(--font-body);
+      font-size: var(--step-0);
+      line-height: 1.5;
+    }
+    a { color: inherit; }
+    :focus-visible { outline: 2px solid var(--graphite); outline-offset: 3px; border-radius: 4px; }
+
+    .wrap { max-width: 62rem; margin: 0 auto; padding: 1.25rem clamp(1rem, 4vw, 2.5rem) 3rem; }
+
+    /* ---- top brand / back ---- */
+    .top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-bottom: 1.5rem; }
+    .brand { display: inline-flex; align-items: center; gap: 0.55rem; text-decoration: none; font-family: var(--font-display); font-weight: 650; letter-spacing: -0.01em; }
+    .brand img { width: 2rem; height: 2rem; display: block; }
+    .brand .back { color: var(--ash); font-weight: 400; font-family: var(--font-body); font-size: var(--step--1); }
+
+    /* ---- hero ---- */
+    h1 { font-family: var(--font-display); font-weight: 700; font-size: var(--step-3); line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 0.6rem; }
+    .lede { max-width: 46rem; color: var(--ash); margin: 0 0 1.4rem; }
+    .lede strong { color: var(--graphite); font-weight: 700; }
+
+    .unit-toggle { display: inline-flex; border: 1px solid var(--hairline); border-radius: 999px; overflow: hidden; }
+    .unit-toggle button { font: inherit; color: var(--ash); background: transparent; border: 0; padding: 0.3rem 0.9rem; cursor: pointer; }
+    .unit-toggle button[aria-pressed="true"] { background: var(--graphite); color: var(--porcelain); }
+
+    /* ---- scale ---- */
+    .scale { margin: 2rem 0 2.6rem; }
+    .axis { position: relative; height: 1.4rem; margin-bottom: 0.4rem; }
+    .atick { position: absolute; transform: translateX(-50%); top: 0; font-size: var(--step--1); color: var(--ash); white-space: nowrap; }
+    .atick.major { color: var(--graphite); font-weight: 700; }
+
+    .bar { position: relative; height: 3.2rem; border-radius: 12px;
+      background: linear-gradient(90deg, #8ea2a8 0%, #b9b483 20%, #e3b65c 38%, #e8943c 55%, #db6f37 72%, #c54c2c 88%, #b02e22 100%);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.06); }
+    @media (prefers-color-scheme: dark) { .bar { box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); } }
+    .ticks { position: absolute; inset: 0; }
+    .tick { position: absolute; top: 6%; height: 88%; width: 2px; transform: translateX(-50%);
+      background: rgba(20,22,24,.42); border-radius: 2px; transition: background .12s, width .12s; pointer-events: none; }
+    .tick.hot { background: var(--graphite); width: 3px; }
+    .tick.hot::after { content: ""; position: absolute; top: -7px; left: 50%; transform: translateX(-50%);
+      width: 9px; height: 9px; border-radius: 50%; background: var(--graphite); }
+
+    .bands { position: relative; height: 0.65rem; margin-top: 0.4rem; }
+    .band { position: absolute; top: 0; height: 100%; border-radius: 3px; opacity: 0.55; transition: opacity .12s, outline-color .12s; outline: 2px solid transparent; outline-offset: 1px; }
+    .band.b0 { background: var(--c-low); }
+    .band.b1 { background: var(--c-mid); }
+    .band.b2 { background: var(--c-std); }
+    .band.b3 { background: var(--c-hot); }
+    .band.hot { opacity: 1; outline-color: var(--graphite); }
+
+    /* ---- sections ---- */
+    h2 { font-family: var(--font-display); font-weight: 650; font-size: var(--step-1); letter-spacing: -0.01em; margin: 2.4rem 0 1rem; }
+
+    .dabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; }
+    .dab { background: var(--glaze); border: 1px solid var(--hairline); border-left-width: 3px; border-radius: 10px; padding: 0.9rem 1rem; cursor: default; transition: border-color .12s, box-shadow .12s, transform .12s; }
+    .dab.d0 { border-left-color: var(--c-low); }
+    .dab.d1 { border-left-color: var(--c-mid); }
+    .dab.d2 { border-left-color: var(--c-std); }
+    .dab.d3 { border-left-color: var(--c-hot); }
+    .dab:hover, .dab:focus-visible, .dab.hot { box-shadow: 0 6px 18px rgba(0,0,0,.08); transform: translateY(-2px); outline: none; }
+    .dab h3 { font-family: var(--font-display); font-weight: 650; font-size: var(--step-0); margin: 0 0 0.15rem; }
+    .dab-range { font-weight: 700; font-size: var(--step--1); margin: 0 0 0.5rem; letter-spacing: 0.01em; }
+    .dab.d0 .dab-range { color: var(--c-low); }
+    .dab.d1 .dab-range { color: var(--c-mid); }
+    .dab.d2 .dab-range { color: var(--c-std); }
+    .dab.d3 .dab-range { color: var(--c-hot); }
+    @media (prefers-color-scheme: dark) { .dab-range { filter: brightness(1.1); } }
+    .dab-desc { color: var(--ash); font-size: var(--step--1); margin: 0; }
+
+    .terps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.1rem 2rem; }
+    .terp { display: flex; align-items: center; gap: 0.7rem; padding: 0.55rem 0.4rem; border-bottom: 1px solid var(--hairline); cursor: default; }
+    .terp.hot { background: color-mix(in oklab, var(--amber) 12%, transparent); border-radius: 8px; border-bottom-color: transparent; }
+    .terp-dot { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--ash); flex: none; transition: background .12s, transform .12s; }
+    .terp.hot .terp-dot { background: var(--amber); transform: scale(1.25); }
+    .terp-name { font-weight: 700; flex: none; }
+    .terp-temp { color: var(--ash); font-variant-numeric: tabular-nums; font-size: var(--step--1); flex: none; }
+    .terp-track { flex: 1 1 auto; height: 4px; background: var(--track); border-radius: 4px; overflow: hidden; min-width: 2rem; }
+    .terp-fill { display: block; height: 100%; background: linear-gradient(90deg, #8ea2a8, var(--amber)); border-radius: 4px; }
+
+    /* ---- footer ---- */
+    .foot { margin-top: 3rem; padding-top: 1.4rem; border-top: 1px solid var(--hairline); color: var(--ash); font-size: var(--step--1); }
+    .foot a { color: var(--graphite); }
+    .foot p { margin: 0 0 0.5rem; }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 2rem; }
+      .dabs { grid-template-columns: repeat(2, 1fr); }
+      .terps { grid-template-columns: 1fr; }
+      .atick.minor { display: none; }
+      .bar { height: 2.6rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .tick, .band, .dab, .terp-dot { transition: none; }
+      .dab:hover, .dab:focus-visible, .dab.hot { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a class="brand" href="/">
+        <img src="favicon.svg" alt="">
+        Peak Pro Control
+      </a>
+      <a class="back" href="/">&larr; back to the app</a>
+    </div>
+
+    <h1>Dab temperature guide</h1>
+    <p class="lede">Temperature changes both <strong>flavor</strong> and <strong>effect</strong>. Lower
+      temperatures keep more of the terpene flavor with a gentler hit; higher temperatures hit
+      harder but burn the flavor off. Below are the boiling points of common terpenes and
+      cannabinoids, and the usual heat ranges for each dab style &mdash; the numbers you dial in on
+      your Peak Pro.</p>
+
+    <div class="unit-toggle" role="group" aria-label="Temperature unit">
+      <button type="button" data-unit="F" aria-pressed="true">&deg;F</button>
+      <button type="button" data-unit="C" aria-pressed="false">&deg;C</button>
+    </div>
+
+    <div class="scale" aria-hidden="true">
+      <div class="axis"></div>
+      <div class="bar"><div class="ticks"></div></div>
+      <div class="bands"></div>
+    </div>
+
+    <h2>Dab styles</h2>
+    <div class="dabs">
+      <article class="dab d0" tabindex="0" data-fmin="400" data-fmax="500" data-cmin="204" data-cmax="260">
+        <h3>Low-temp</h3>
+        <p class="dab-range">400&ndash;500&deg;F</p>
+        <p class="dab-desc">Coolest and most flavorful. Thin, tasty vapor that keeps the terpenes intact, with a lighter, cleaner high. Leaves more oil behind in the dish.</p>
+      </article>
+      <article class="dab d1" tabindex="0" data-fmin="500" data-fmax="545" data-cmin="260" data-cmax="285">
+        <h3>Mid-range</h3>
+        <p class="dab-range">500&ndash;545&deg;F</p>
+        <p class="dab-desc">The balance point &mdash; solid flavor and a fuller effect, with thicker vapor. A good default if you&rsquo;re not sure where to start.</p>
+      </article>
+      <article class="dab d2" tabindex="0" data-fmin="545" data-fmax="570" data-cmin="285" data-cmax="299">
+        <h3>Standard</h3>
+        <p class="dab-range">545&ndash;570&deg;F</p>
+        <p class="dab-desc">Bigger clouds and a stronger hit, with the flavor starting to drop off. Vaporizes the oil fast and clears the dish.</p>
+      </article>
+      <article class="dab d3" tabindex="0" data-fmin="570" data-fmax="600" data-cmin="299" data-cmax="315">
+        <h3>Hot</h3>
+        <p class="dab-range">570&ndash;600&deg;F</p>
+        <p class="dab-desc">Harshest and most intense. Maximum vapor and effect, almost no flavor, and hot enough to scorch the oil. Hard on the throat.</p>
+      </article>
+    </div>
+
+    <h2>Boiling points</h2>
+    <ul class="terps">
+      <li class="terp" tabindex="0" data-f="266"><span class="terp-dot"></span><span class="terp-name">Caryophyllene</span><span class="terp-temp" data-f="266" data-c="130">266&deg;F</span><span class="terp-track"><span class="terp-fill"></span></span></li>
+      <li class="terp" tabindex="0" data-f="311"><span class="terp-dot"></span><span class="terp-name">Pinene</span><span class="terp-temp" data-f="311" data-c="155">311&deg;F</span><span class="terp-track"><span class="terp-fill"></span></span></li>
+      <li class="terp" tabindex="0" data-f="315"><span class="terp-dot"></span><span class="terp-name">THC</span><span class="terp-temp" data-f="315" data-c="157">315&deg;F</span><span class="terp-track"><span class="terp-fill"></span></span></li>
+      <li class="terp" tabindex="0" data-f="334"><span class="terp-dot"></span><span class="terp-name">Myrcene</span><span class="terp-temp" data-f="334" data-c="168">334&deg;F</span><span class="terp-track"><span class="terp-fill"></span></span></li>
+      <li class="terp" tabindex="0" data-f="347"><span class="terp-dot"></span><span class="terp-name">Ocimene</span><span class="terp-temp" data-f="347" data-c="175">347&deg;F</span><span class="terp-track"><span class="terp-fill"></span></span></li>
+      <li class="terp" tabindex="0" data-f="349"><span class="terp-dot"></span><span class="terp-name">Limonene</span><span class="terp-temp" data-f="349" data-c="176">349&deg;F</span><span class="terp-track"><span class="terp-fill"></span></span></li>
+      <li class="terp" tabindex="0" data-f="356"><span class="terp-dot"></span><span class="terp-name">CBD</span><span class="terp-temp" data-f="356" data-c="180">356&deg;F</span><span class="terp-track"><span class="terp-fill"></span></span></li>
+      <li class="terp" tabindex="0" data-f="365"><span class="terp-dot"></span><span class="terp-name">Terpinolene</span><span class="terp-temp" data-f="365" data-c="185">365&deg;F</span><span class="terp-track"><span class="terp-fill"></span></span></li>
+      <li class="terp" tabindex="0" data-f="388"><span class="terp-dot"></span><span class="terp-name">Humulene</span><span class="terp-temp" data-f="388" data-c="198">388&deg;F</span><span class="terp-track"><span class="terp-fill"></span></span></li>
+      <li class="terp" tabindex="0" data-f="388"><span class="terp-dot"></span><span class="terp-name">Linalool</span><span class="terp-temp" data-f="388" data-c="198">388&deg;F</span><span class="terp-track"><span class="terp-fill"></span></span></li>
+    </ul>
+
+    <footer class="foot">
+      <p>Boiling points vary a few degrees between sources &mdash; treat these as starting points and trust your own taste. Terpenes boil off first, which is why the flavorful dabs sit at the cool end.</p>
+      <p><a href="/">Peak Pro Control</a> &middot; not affiliated with Puffco &middot; for use with a device you own. Know your local laws.</p>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var AXIS_MIN = 250, AXIS_MAX = 600;
+      var pos = function (f) { return (f - AXIS_MIN) / (AXIS_MAX - AXIS_MIN) * 100; };
+      var $ = function (s, r) { return (r || document).querySelector(s); };
+      var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+      // --- axis labels ---
+      var axis = $('.axis');
+      for (var t = AXIS_MIN; t <= AXIS_MAX; t += 50) {
+        var a = document.createElement('span');
+        var major = (t % 100 === 0);
+        a.className = 'atick' + (major ? ' major' : ' minor');
+        a.style.left = pos(t) + '%';
+        a.dataset.f = t;
+        axis.appendChild(a);
+      }
+
+      // --- terpene ticks on the bar, linked to list rows ---
+      var ticksBox = $('.ticks');
+      $$('.terp').forEach(function (row) {
+        var f = +row.dataset.f;
+        var tk = document.createElement('i');
+        tk.className = 'tick';
+        tk.style.left = pos(f) + '%';
+        ticksBox.appendChild(tk);
+        var fill = $('.terp-fill', row);
+        if (fill) fill.style.width = pos(f) + '%';
+        var hot = function (on) { row.classList.toggle('hot', on); tk.classList.toggle('hot', on); };
+        row.addEventListener('mouseenter', function () { hot(true); });
+        row.addEventListener('mouseleave', function () { hot(false); });
+        row.addEventListener('focus', function () { hot(true); });
+        row.addEventListener('blur', function () { hot(false); });
+      });
+
+      // --- dab bands on the strip, linked to cards ---
+      var bandsBox = $('.bands');
+      $$('.dab').forEach(function (card, i) {
+        var a = +card.dataset.fmin, b = +card.dataset.fmax;
+        var seg = document.createElement('i');
+        seg.className = 'band b' + i;
+        seg.style.left = pos(a) + '%';
+        seg.style.width = (pos(b) - pos(a)) + '%';
+        bandsBox.appendChild(seg);
+        var hot = function (on) { card.classList.toggle('hot', on); seg.classList.toggle('hot', on); };
+        card.addEventListener('mouseenter', function () { hot(true); });
+        card.addEventListener('mouseleave', function () { hot(false); });
+        card.addEventListener('focus', function () { hot(true); });
+        card.addEventListener('blur', function () { hot(false); });
+      });
+
+      // --- unit toggle ---
+      function setUnit(u) {
+        $$('.terp-temp').forEach(function (el) {
+          el.textContent = (u === 'F' ? el.dataset.f + '°F' : el.dataset.c + '°C');
+        });
+        $$('.dab').forEach(function (card) {
+          var r = $('.dab-range', card);
+          r.textContent = (u === 'F'
+            ? card.dataset.fmin + '–' + card.dataset.fmax + '°F'
+            : card.dataset.cmin + '–' + card.dataset.cmax + '°C');
+        });
+        $$('.atick').forEach(function (el) {
+          var f = +el.dataset.f;
+          el.textContent = (u === 'F' ? f + '°' : Math.round((f - 32) * 5 / 9) + '°');
+        });
+        $$('.unit-toggle button').forEach(function (btn) {
+          btn.setAttribute('aria-pressed', String(btn.dataset.unit === u));
+        });
+      }
+      $$('.unit-toggle button').forEach(function (btn) {
+        btn.addEventListener('click', function () { setUnit(btn.dataset.unit); });
+      });
+      setUnit('F');
+    })();
+  </script>
+</body>
+</html>
