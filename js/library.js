@@ -412,7 +412,9 @@ export function renderLibrary(root, ctx) {
     'Starting points from the dabbing temperature guides by ',
     el('a', { href: SOURCES[0].url, target: '_blank', rel: 'noopener' }, SOURCES[0].name), ' and ',
     el('a', { href: SOURCES[1].url, target: '_blank', rel: 'noopener' }, SOURCES[1].name),
-    '. The guides don’t always agree, and concentrates and chambers differ, so adjust to taste. Load into writes the template to that profile on the device; the profile it replaces is kept in My profiles.'));
+    '. The guides don’t always agree, and concentrates and chambers differ, so adjust to taste. For what each range does, see the ',
+    el('a', { href: 'temps.html' }, 'dab temperature guide'),
+    '. Load into writes the template to that profile on the device; the profile it replaces is kept in My profiles.'));
 
   const visible = (g, x) => ui.filter === 'all' || ui.filter === g.k || (ui.filter === 'fav' && favs.has(x.name));
   const count = (k) => GROUPS.reduce((n, g) => n + g.items.filter((x) => k === 'all' || k === g.k || (k === 'fav' && favs.has(x.name))).length, 0);
