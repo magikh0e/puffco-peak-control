@@ -74,3 +74,7 @@ Protocol groundwork:
 [austenstone/puffco-mcp](https://github.com/austenstone/puffco-mcp),
 [Fr0st3h's write-up](https://github.com/Fr0st3h/Puffco-Reverse-Engineering-Writeup).
 Not affiliated with Puffco. Use it only with devices you own.
+
+## License
+
+GPL-3.0. See [LICENSE](LICENSE).
