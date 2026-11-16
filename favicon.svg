@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Peak Pro Control">
+  <title>Peak Pro Control</title>
+  <defs>
+    <radialGradient id="ppc-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0.30" stop-color="#e8943c" stop-opacity="0"/>
+      <stop offset="0.60" stop-color="#e8943c" stop-opacity="0.55"/>
+      <stop offset="0.74" stop-color="#e8943c" stop-opacity="0.50"/>
+      <stop offset="0.96" stop-color="#e8943c" stop-opacity="0"/>
+    </radialGradient>
+    <style>
+      .ink   { stroke: #22272b; }
+      .ink-f { fill:   #22272b; }
+      @media (prefers-color-scheme: dark) {
+        .ink   { stroke: #e6e9e7; }
+        .ink-f { fill:   #e6e9e7; }
+      }
+    </style>
+  </defs>
+
+  <!-- warm glow halo -->
+  <circle cx="32" cy="32" r="30" fill="url(#ppc-glow)"/>
+
+  <!-- rings -->
+  <circle class="ink" cx="32" cy="32" r="28"   fill="none" stroke-width="2.1"/>
+  <circle class="ink" cx="32" cy="32" r="20.5" fill="none" stroke-width="3.2"/>
+
+  <!-- broadcast glyph  ((.)) -->
+  <g class="ink" fill="none" stroke-width="2.2" stroke-linecap="round">
+    <path d="M36.2 27.6 A 7 7 0 0 1 36.2 36.4"/>
+    <path d="M39 25.4 A 9.5 9.5 0 0 1 39 38.6"/>
+    <path d="M27.8 27.6 A 7 7 0 0 0 27.8 36.4"/>
+    <path d="M25 25.4 A 9.5 9.5 0 0 0 25 38.6"/>
+  </g>
+  <circle class="ink-f" cx="32" cy="32" r="2.4"/>
+</svg>
