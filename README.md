@@ -126,6 +126,7 @@ Peak Pros on firmware older than `AB` use a different Bluetooth layout and
 aren't supported. The app says so if it finds one.
 
 Protocol groundwork:
+[my BLE reversing guide](https://magikh0e.pl/pubHardwareHacking/reversing-bluetooth-le-android.html),
 [magikh0e/puffco-lorax-decode](https://github.com/magikh0e/puffco-lorax-decode),
 [austenstone/puffco-mcp](https://github.com/austenstone/puffco-mcp),
 [Fr0st3h's write-up](https://github.com/Fr0st3h/Puffco-Reverse-Engineering-Writeup).
