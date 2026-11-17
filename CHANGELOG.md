@@ -9,6 +9,11 @@ shown at the bottom of the app comes from `VERSION` in `js/app.js`.
 
 ## [Unreleased]
 
+### Added
+
+- The version shows as a badge next to the device name at the top of the page, linking to this
+  changelog.
+
 ## [1.0.0] - 2026-11-16
 
 The first numbered release. Connecting, pairing, live state and every control below have been

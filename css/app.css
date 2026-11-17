@@ -100,6 +100,23 @@ button, input, select { font: inherit; color: inherit; }
 .bar-logo { width: 2.5rem; height: 2.5rem; flex: none; display: block; }
 .bar-id { min-width: 0; }
 
+/* The device name, then the app version as a small pill linking to the changelog. */
+.bar-title { display: flex; flex-wrap: wrap; align-items: center; column-gap: 0.5rem; row-gap: 0.2rem; }
+.ver-badge {
+  display: inline-block;
+  padding: 0.05rem 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--ash);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+}
+.ver-badge:hover { color: var(--graphite); border-color: var(--glow); }
+
 .bar-actions { display: flex; align-items: center; gap: 0.75rem; }
 
 .unit-toggle {
