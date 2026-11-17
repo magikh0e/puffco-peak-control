@@ -10,6 +10,8 @@ temperature, edit the four heat profiles, load ready-made profile templates,
 and change lights, stealth mode, ready mode and the device name. It has no
 build step and no dependencies.
 
+Want it in Home Assistant instead? [ha-puffco-peak](https://github.com/magikh0e/ha-puffco-peak) is a HACS integration that drives the same device from Home Assistant over Bluetooth, exposing its state and controls as entities — all local, no cloud.
+
 ## Demo
 
 https://github.com/user-attachments/assets/8b361ceb-9b36-45df-933a-c7a38f72fa06
