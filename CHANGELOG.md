@@ -19,6 +19,9 @@ shown in the app comes from `VERSION` in `js/version.js`.
 - Caryophyllene's boiling point on the dab temperature guide and the help page is now 495°F
   (257°C), its boiling point at normal air pressure. The 266°F (130°C) that many cannabis charts
   repeat is its boiling point close to a vacuum.
+- Humulene on the dab temperature guide moves from 388°F (198°C) to about 529°F (276°C), a
+  calculated estimate. It weighs the same as caryophyllene, and measurements under vacuum put its
+  normal boiling point far above the figures in common charts.
 
 ## [1.2.0] - 2026-11-16
 
