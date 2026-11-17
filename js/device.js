@@ -1,6 +1,6 @@
 // High-level Puffco device API on top of the LORAX transport.
 // Command sequences mirror the official app (Puffco Connect 3.13.47).
-import { FIELDS } from './fields.js?v=16';
+import { FIELDS } from './fields.js?v=17';
 
 export const MODE = {
   masterOff: 0, sleep: 1, idle: 2, tempSelectBegin: 3, tempSelectStop: 4,

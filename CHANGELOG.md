@@ -9,6 +9,12 @@ shown in the app comes from `VERSION` in `js/version.js`.
 
 ## [Unreleased]
 
+### Added
+
+- The start screen links to the demo ("No Peak Pro nearby? Try the demo"), and so does the
+  message shown in browsers without Bluetooth, since the demo works there too. In the demo, the
+  start screen says so and links back to the real app.
+
 ## [1.2.1] - 2026-11-16
 
 ### Added

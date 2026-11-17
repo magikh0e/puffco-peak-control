@@ -57,8 +57,10 @@
           <p>Close the Puffco app on your phone first: the Peak Pro only accepts one Bluetooth connection at a time.</p>
           <p>The first time you connect from this computer, put the device in pairing mode: hold the button until the logo glows blue. It powers off and back on before the blue light appears. Then press Connect.</p>
           <p>First time, or stuck? The <a href="help.html">help page</a> walks through connecting and every part of the app.</p>
+          <p id="demo-offer">No Peak Pro nearby? <a href="?demo">Try the demo</a>: the full app, running against a simulated Peak Pro.</p>
+          <p id="demo-on" hidden>This is the demo: the full app, running against a simulated Peak Pro. <a href="./">Leave the demo</a> to connect a real one.</p>
           <ol id="connect-progress" class="progress-log" aria-live="polite" aria-label="Connection progress" hidden></ol>
-          <p id="bt-unsupported" class="warn" hidden>This browser can't use Bluetooth. Open the page in Chrome or Edge on a computer or Android phone.</p>
+          <p id="bt-unsupported" class="warn" hidden>This browser can't use Bluetooth. Open the page in Chrome or Edge on a computer or Android phone, or <a href="?demo">try the demo</a> here.</p>
           <div id="connect-error" class="connect-error" role="alert" hidden>
             <p class="warn" id="connect-error-title"></p>
             <ol id="connect-error-steps"></ol>
@@ -193,6 +195,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
-  <script type="module" src="js/app.js?v=16"></script>
+  <script type="module" src="js/app.js?v=17"></script>
 </body>
 </html>

@@ -1,13 +1,13 @@
-import { LoraxClient, requestOptions } from './lorax.js?v=16';
-import { PuffcoDevice, LIMITS, LUMA, cToF, fToC } from './device.js?v=16';
-import { renderLibrary, syncLibrary, keepProfile, profileSpec } from './library.js?v=16';
-import { VERSION, showVersion } from './version.js?v=16';
+import { LoraxClient, requestOptions } from './lorax.js?v=17';
+import { PuffcoDevice, LIMITS, LUMA, cToF, fToC } from './device.js?v=17';
+import { renderLibrary, syncLibrary, keepProfile, profileSpec } from './library.js?v=17';
+import { VERSION, showVersion } from './version.js?v=17';
 
 const $ = (id) => document.getElementById(id);
 const DEMO = new URLSearchParams(location.search).has('demo');
 // The release version lives in version.js. BUILD follows the ?v= numbers on
 // the imports and changes with every deploy, released or not.
-const BUILD = '2026-11-16.16';
+const BUILD = '2026-11-16.17';
 const ABOUT = `Peak Pro Control v${VERSION} (build ${BUILD})`;
 
 const store = {
@@ -111,7 +111,7 @@ async function connect() {
   try {
     setConn('busy', 'Choosing a device');
     if (DEMO) {
-      const { requestMockDevice } = await import('./mock-device.js?v=16');
+      const { requestMockDevice } = await import('./mock-device.js?v=17');
       const mode = new URLSearchParams(location.search).get('demo');
       device = await requestMockDevice({
         unpaired: mode === 'unpaired', needsBond: ['pairing', 'stuck', 'notpaired'].includes(mode),
@@ -678,6 +678,9 @@ function init() {
     $('btn-connect').disabled = true;
   }
   if (DEMO) $('btn-connect').textContent = 'Connect demo';
+  // The start screen offers the demo; in the demo it offers the way back.
+  $('demo-offer').hidden = DEMO;
+  $('demo-on').hidden = !DEMO;
 
   $('btn-connect').addEventListener('click', () => (state.connecting ? state.lorax?.cancel() : connect()));
   $('btn-disconnect').addEventListener('click', () => state.lorax?.disconnect());
