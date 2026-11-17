@@ -17,6 +17,11 @@ shown in the app comes from `VERSION` in `js/version.js`.
   connection errors and from the footer.
 - The dab temperature guide links to the help page and to Tropical Roots Maui's terpene guide.
 
+### Fixed
+
+- Saving a profile whose light is an animation no longer replaces the animation with steady
+  white. The light color is now written only when you change it.
+
 ## [1.1.0] - 2026-11-16
 
 ### Added

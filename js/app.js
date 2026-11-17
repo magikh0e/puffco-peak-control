@@ -1,13 +1,13 @@
-import { LoraxClient, requestOptions } from './lorax.js?v=14';
-import { PuffcoDevice, LIMITS, LUMA, cToF, fToC } from './device.js?v=14';
-import { renderLibrary, syncLibrary, keepProfile, profileSpec } from './library.js?v=14';
-import { VERSION, showVersion } from './version.js?v=14';
+import { LoraxClient, requestOptions } from './lorax.js?v=15';
+import { PuffcoDevice, LIMITS, LUMA, cToF, fToC } from './device.js?v=15';
+import { renderLibrary, syncLibrary, keepProfile, profileSpec } from './library.js?v=15';
+import { VERSION, showVersion } from './version.js?v=15';
 
 const $ = (id) => document.getElementById(id);
 const DEMO = new URLSearchParams(location.search).has('demo');
 // The release version lives in version.js. BUILD follows the ?v= numbers on
 // the imports and changes with every deploy, released or not.
-const BUILD = '2026-11-16.14';
+const BUILD = '2026-11-16.15';
 const ABOUT = `Peak Pro Control v${VERSION} (build ${BUILD})`;
 
 const store = {
@@ -111,7 +111,7 @@ async function connect() {
   try {
     setConn('busy', 'Choosing a device');
     if (DEMO) {
-      const { requestMockDevice } = await import('./mock-device.js?v=14');
+      const { requestMockDevice } = await import('./mock-device.js?v=15');
       const mode = new URLSearchParams(location.search).get('demo');
       device = await requestMockDevice({
         unpaired: mode === 'unpaired', needsBond: ['pairing', 'stuck', 'notpaired'].includes(mode),
@@ -419,6 +419,10 @@ function renderProfileEditors() {
     colorF.innerHTML = `<label for="p${i}-color">Light color</label><input id="p${i}-color" type="color">`;
     const ci = colorF.querySelector('input');
     ci.value = c ?? '#ffffff';
+    // Save writes the color only if it was changed here. Animated lights and
+    // profiles without a color have no hex value, so the field starts on white,
+    // and comparing against the profile would replace the animation every save.
+    ci.dataset.initial = ci.value;
     if (!colorSupported) { ci.disabled = true; colorF.querySelector('label').textContent = 'Light color (not supported on this firmware)'; }
     if (p.color?.kind === 'table') colorF.querySelector('label').textContent = 'Light color (currently an animation)';
 
@@ -469,7 +473,7 @@ async function saveProfile(i, card) {
     if (bd !== undefined && Math.round(bd) !== Math.round(p.boostTimeSec)) patch.boostTimeSec = bd;
 
     const ci = card.querySelector(`#p${i}-color`);
-    if (!ci.disabled && ci.value.toLowerCase() !== (colorOf(p) ?? '').toLowerCase()) {
+    if (!ci.disabled && ci.value.toLowerCase() !== ci.dataset.initial.toLowerCase()) {
       patch.color = { ...fromHex(ci.value), lumaAnim: p.color?.kind === 'rgb' ? p.color.lumaAnim : LUMA.preserve };
     }
 
