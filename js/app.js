@@ -1,14 +1,14 @@
-import { LoraxClient, requestOptions } from './lorax.js?v=12';
-import { PuffcoDevice, LIMITS, LUMA, cToF, fToC } from './device.js?v=12';
-import { renderLibrary, syncLibrary, keepProfile, profileSpec } from './library.js?v=12';
+import { LoraxClient, requestOptions } from './lorax.js?v=13';
+import { PuffcoDevice, LIMITS, LUMA, cToF, fToC } from './device.js?v=13';
+import { renderLibrary, syncLibrary, keepProfile, profileSpec } from './library.js?v=13';
 
 const $ = (id) => document.getElementById(id);
 const DEMO = new URLSearchParams(location.search).has('demo');
 // The release version: bump it together with a CHANGELOG.md entry (see README,
 // "Releasing a version"). BUILD follows the ?v= numbers on the imports and
 // changes with every deploy, released or not.
-const VERSION = '1.0.0';
-const BUILD = '2026-11-16.12';
+const VERSION = '1.1.0';
+const BUILD = '2026-11-16.13';
 const ABOUT = `Peak Pro Control v${VERSION} (build ${BUILD})`;
 
 const store = {
@@ -112,7 +112,7 @@ async function connect() {
   try {
     setConn('busy', 'Choosing a device');
     if (DEMO) {
-      const { requestMockDevice } = await import('./mock-device.js?v=12');
+      const { requestMockDevice } = await import('./mock-device.js?v=13');
       const mode = new URLSearchParams(location.search).get('demo');
       device = await requestMockDevice({
         unpaired: mode === 'unpaired', needsBond: ['pairing', 'stuck', 'notpaired'].includes(mode),
