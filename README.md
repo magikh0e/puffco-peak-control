@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="favicon.svg" width="96" alt="Peak Pro Control">
+</p>
+
 # Peak Pro Control
 
 A browser app for controlling your own Puffco Peak Pro over Bluetooth: start
