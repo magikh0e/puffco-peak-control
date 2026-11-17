@@ -94,27 +94,30 @@ after a few tries) and `?demo=stuck` (a read that never answers).
 - `js/app.js`: the interface.
 - `js/library.js`: profile templates, My profiles (saved in the browser), backup and restore.
 - `js/mock-device.js`: simulated device for `?demo`.
+- `js/version.js`: the app version, shared by the app and the help page.
+- `help.html`: the Help & FAQ page.
+- `temps.html`: the dab temperature guide.
 - `docs/PROTOCOL.md`: protocol notes recovered from Puffco Connect 3.13.47.
 - `serve.py`: local static server with caching disabled.
 - `CHANGELOG.md`: what changed in each version.
 
 ## Releasing a version
 
-The version shown at the bottom of the app is `VERSION` in `js/app.js`, numbered with
+The version shown in the app and on the help page is `VERSION` in `js/version.js`, numbered with
 [semver](https://semver.org/): major for changes that break saved profiles or how the app is
 used, minor for new features, patch for fixes and polish. Changes collect under
 `## [Unreleased]` in [CHANGELOG.md](CHANGELOG.md) as they land. To release:
 
 1. In `CHANGELOG.md`, rename `## [Unreleased]` to `## [x.y.z] - YYYY-MM-DD`, add a fresh empty
    `## [Unreleased]` above it, and update the compare links at the bottom.
-2. Set `VERSION` in `js/app.js` to the same number.
+2. Set `VERSION` in `js/version.js` to the same number.
 3. Commit, then tag and push: `git tag -a vx.y.z -m "vx.y.z"` and `git push origin main vx.y.z`.
 4. Publish the GitHub release with that version's changelog section as its notes:
    `gh release create vx.y.z --verify-tag --title vx.y.z --notes-file notes.md`.
 
 Every deploy that changes a script or stylesheet, released or not, also bumps the `?v=`
-numbers on the imports and `BUILD` in `js/app.js` together, so browsers don't mix old and new
-files.
+numbers on the imports (including the one in `help.html`) and `BUILD` in `js/app.js` together,
+so browsers don't mix old and new files.
 
 ## Status
 

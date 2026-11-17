@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/app.css?v=4">
+  <link rel="stylesheet" href="css/app.css?v=5">
 </head>
 <body>
   <header class="bar">
@@ -56,6 +56,7 @@
           <h2>Control your Peak Pro from this page</h2>
           <p>Close the Puffco app on your phone first: the Peak Pro only accepts one Bluetooth connection at a time.</p>
           <p>The first time you connect from this computer, put the device in pairing mode: hold the button until the logo glows blue. It powers off and back on before the blue light appears. Then press Connect.</p>
+          <p>First time, or stuck? The <a href="help.html">help page</a> walks through connecting and every part of the app.</p>
           <ol id="connect-progress" class="progress-log" aria-live="polite" aria-label="Connection progress" hidden></ol>
           <p id="bt-unsupported" class="warn" hidden>This browser can't use Bluetooth. Open the page in Chrome or Edge on a computer or Android phone.</p>
           <div id="connect-error" class="connect-error" role="alert" hidden>
@@ -63,6 +64,7 @@
             <ol id="connect-error-steps"></ol>
             <div class="inline">
               <button type="button" id="btn-copy-details" class="btn-quiet">Copy technical details</button>
+              <a href="help.html#trouble">More help with connecting</a>
             </div>
             <details>
               <summary>Technical details</summary>
@@ -175,6 +177,7 @@
 
   <footer class="colophon">
     <p><a href="https://magikh0e.pl/" rel="noopener">by magikh0e</a> &middot;
+      <a href="help.html">help &amp; FAQ</a> &middot;
       <a href="temps.html">dab temperature guide</a> &middot;
       <a href="https://github.com/magikh0e/puffco-peak-control" rel="noopener">source</a> &middot;
       <a href="https://github.com/magikh0e/puffco-peak-control/blob/main/CHANGELOG.md" rel="noopener" data-app-version title="What's new in each version">changelog</a> &middot;
@@ -190,6 +193,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
-  <script type="module" src="js/app.js?v=13"></script>
+  <script type="module" src="js/app.js?v=14"></script>
 </body>
 </html>

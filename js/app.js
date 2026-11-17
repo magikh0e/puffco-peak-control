@@ -1,14 +1,13 @@
-import { LoraxClient, requestOptions } from './lorax.js?v=13';
-import { PuffcoDevice, LIMITS, LUMA, cToF, fToC } from './device.js?v=13';
-import { renderLibrary, syncLibrary, keepProfile, profileSpec } from './library.js?v=13';
+import { LoraxClient, requestOptions } from './lorax.js?v=14';
+import { PuffcoDevice, LIMITS, LUMA, cToF, fToC } from './device.js?v=14';
+import { renderLibrary, syncLibrary, keepProfile, profileSpec } from './library.js?v=14';
+import { VERSION, showVersion } from './version.js?v=14';
 
 const $ = (id) => document.getElementById(id);
 const DEMO = new URLSearchParams(location.search).has('demo');
-// The release version: bump it together with a CHANGELOG.md entry (see README,
-// "Releasing a version"). BUILD follows the ?v= numbers on the imports and
-// changes with every deploy, released or not.
-const VERSION = '1.1.0';
-const BUILD = '2026-11-16.13';
+// The release version lives in version.js. BUILD follows the ?v= numbers on
+// the imports and changes with every deploy, released or not.
+const BUILD = '2026-11-16.14';
 const ABOUT = `Peak Pro Control v${VERSION} (build ${BUILD})`;
 
 const store = {
@@ -112,7 +111,7 @@ async function connect() {
   try {
     setConn('busy', 'Choosing a device');
     if (DEMO) {
-      const { requestMockDevice } = await import('./mock-device.js?v=13');
+      const { requestMockDevice } = await import('./mock-device.js?v=14');
       const mode = new URLSearchParams(location.search).get('demo');
       device = await requestMockDevice({
         unpaired: mode === 'unpaired', needsBond: ['pairing', 'stuck', 'notpaired'].includes(mode),
@@ -668,13 +667,7 @@ function selectTab(tab) {
 }
 
 function init() {
-  // Footer version link, and the version filled in on the problem report form.
-  for (const a of document.querySelectorAll('[data-app-version]')) a.textContent = `v${VERSION}`;
-  for (const a of document.querySelectorAll('[data-report-link]')) {
-    const url = new URL(a.href);
-    url.searchParams.set('app-version', `v${VERSION}`);
-    a.href = url;
-  }
+  showVersion();
 
   if (!DEMO && !navigator.bluetooth) {
     $('bt-unsupported').hidden = false;

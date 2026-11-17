@@ -235,6 +235,8 @@ main { max-width: 72rem; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5rem) 4re
   max-width: 22ch;
 }
 .intro p { max-width: 52ch; color: var(--ash); margin: 0 0 0.8rem; }
+.intro a { color: var(--graphite); text-underline-offset: 2px; }
+.intro a:hover { color: var(--glow); }
 .warn { color: var(--alarm) !important; }
 .progress-log {
   list-style: none;

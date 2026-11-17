@@ -1,9 +1,9 @@
 // Simulated Peak Pro at the Web Bluetooth GATT level, for ?demo.
 // It speaks real LORAX frames (including the SHA-256 unlock check), so the
 // transport and device layers run unchanged against it.
-import { UUID, OP } from './lorax.js?v=13';
-import { FIELDS } from './fields.js?v=13';
-import { encode, decode, MODE } from './device.js?v=13';
+import { UUID, OP } from './lorax.js?v=14';
+import { FIELDS } from './fields.js?v=14';
+import { encode, decode, MODE } from './device.js?v=14';
 
 const F = FIELDS.pikachoid;
 const KEY = Uint8Array.from(atob('ZMZFYlbyb1scoSc3pd1x+w=='), (c) => c.charCodeAt(0));

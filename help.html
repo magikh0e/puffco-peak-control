@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Help &amp; FAQ &middot; Peak Pro Control</title>
+  <meta name="description" content="How to connect a Puffco Peak Pro to Peak Pro Control, pair it with your computer, use each tab, fix connection problems, and pick temperatures for terpenes.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --porcelain: #e9ecea;
+      --glaze: #f7f8f6;
+      --graphite: #22272b;
+      --ash: #5f676b;
+      --hairline: #cdd3d1;
+      --track: #d7dcda;
+      --alarm: #b8392a;
+      --glow: #3d8bff;
+      --glow-soft: color-mix(in oklab, var(--glow) 18%, transparent);
+
+      --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+      --font-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+      --font-code: ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+      --step--1: 0.875rem;
+      --step-0: 1rem;
+      --step-1: 1.25rem;
+      --step-2: 1.6rem;
+      --step-3: clamp(2.1rem, 6vw, 3rem);
+
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --porcelain: #1a1d1f;
+        --glaze: #24282a;
+        --graphite: #e6e9e7;
+        --ash: #9aa3a6;
+        --hairline: #3a4043;
+        --track: #33393c;
+        --alarm: #f07a68;
+        --glow: #6aa6ff;
+        color-scheme: dark;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-padding-top: 1rem; }
+    body {
+      margin: 0;
+      background: var(--porcelain);
+      color: var(--graphite);
+      font-family: var(--font-body);
+      font-size: var(--step-0);
+      line-height: 1.55;
+    }
+    a { color: inherit; text-underline-offset: 2px; }
+    a:hover { color: var(--glow); }
+    :focus-visible { outline: 2px solid var(--graphite); outline-offset: 3px; border-radius: 4px; }
+    code { font-family: var(--font-code); font-size: 0.9em; background: var(--track); padding: 0.05em 0.35em; border-radius: 4px; }
+    strong { font-weight: 700; }
+
+    .wrap { max-width: 50rem; margin: 0 auto; padding: 1.25rem clamp(1rem, 4vw, 2.5rem) 3rem; }
+
+    /* ---- top brand / back ---- */
+    .top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-bottom: 1.5rem; }
+    .brand { display: inline-flex; align-items: center; gap: 0.55rem; text-decoration: none; font-family: var(--font-display); font-weight: 650; letter-spacing: -0.01em; }
+    .brand img { width: 2rem; height: 2rem; display: block; }
+    .back { color: var(--ash); font-size: var(--step--1); }
+
+    /* ---- hero ---- */
+    .title { display: flex; flex-wrap: wrap; align-items: center; column-gap: 0.7rem; row-gap: 0.3rem; margin: 0 0 0.6rem; }
+    h1 { font-family: var(--font-display); font-weight: 700; font-size: var(--step-3); line-height: 1.05; letter-spacing: -0.02em; margin: 0; }
+    .ver-badge { display: inline-block; padding: 0.05rem 0.55rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.02em; line-height: 1.5;
+      white-space: nowrap; text-decoration: none; color: var(--ash); border: 1px solid var(--hairline); border-radius: 999px; }
+    .ver-badge:hover { color: var(--graphite); border-color: var(--glow); }
+    .lede { color: var(--ash); margin: 0 0 1.6rem; max-width: 44rem; }
+    .lede strong { color: var(--graphite); }
+
+    /* ---- jump list ---- */
+    .toc { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 1rem 2rem; padding: 1.1rem 1.3rem;
+      background: var(--glaze); border: 1px solid var(--hairline); border-radius: 14px; margin-bottom: 2.4rem; }
+    .toc h2 { font-family: var(--font-body); font-size: var(--step--1); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ash); margin: 0 0 0.4rem; }
+    .toc ul { list-style: none; margin: 0; padding: 0; }
+    .toc li { margin: 0.2rem 0; }
+    .toc a { text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    .toc-faq { font-size: var(--step--1); }
+
+    /* ---- sections ---- */
+    section { margin-top: 2.6rem; }
+    h2 { font-family: var(--font-display); font-weight: 650; font-size: var(--step-2); letter-spacing: -0.015em; line-height: 1.15; margin: 0 0 0.8rem; }
+    h3 { font-family: var(--font-display); font-weight: 650; font-size: var(--step-1); letter-spacing: -0.01em; margin: 0 0 0.35rem; }
+    p { margin: 0 0 0.8rem; }
+
+    .needs { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+    .needs li { padding-left: 1.4rem; position: relative; }
+    .needs li::before { content: ""; position: absolute; left: 0.2rem; top: 0.6em; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--glow); }
+
+    .steps { list-style: none; counter-reset: step; margin: 0 0 1rem; padding: 0; display: grid; gap: 0.75rem; }
+    .steps > li { counter-increment: step; position: relative; padding-left: 2.6rem; min-height: 1.9rem; }
+    .steps > li::before { content: counter(step); position: absolute; left: 0; top: -0.05rem; width: 1.9rem; height: 1.9rem; border-radius: 50%;
+      display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: 0.95rem;
+      background: var(--graphite); color: var(--porcelain); }
+
+    .note { border: 1px solid var(--hairline); border-left: 4px solid var(--glow); background: var(--glaze); border-radius: 10px; padding: 0.85rem 1.1rem; margin: 1rem 0; }
+    .note p:last-child { margin-bottom: 0; }
+    .note-title { font-weight: 700; margin-bottom: 0.3rem; }
+
+    /* ---- the app, part by part ---- */
+    .parts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr)); gap: 0.9rem; }
+    .part { background: var(--glaze); border: 1px solid var(--hairline); border-radius: 14px; padding: 1rem 1.15rem; }
+    .part p:last-child, .part ul:last-child { margin-bottom: 0; }
+    .part ul { margin: 0 0 0.6rem; padding-left: 1.1rem; }
+    .part li { margin: 0.2rem 0; }
+
+    /* ---- questions (troubleshooting and FAQ) ---- */
+    .qs { display: grid; gap: 0.55rem; }
+    details { background: var(--glaze); border: 1px solid var(--hairline); border-radius: 12px; }
+    details[open] { border-color: color-mix(in oklab, var(--glow) 55%, var(--hairline)); }
+    summary { cursor: pointer; list-style: none; padding: 0.8rem 2.6rem 0.8rem 1.1rem; position: relative; font-weight: 700; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: ""; position: absolute; right: 1.1rem; top: 50%; width: 0.55rem; height: 0.55rem; margin-top: -0.4rem;
+      border-right: 2px solid var(--ash); border-bottom: 2px solid var(--ash); transform: rotate(45deg); transition: transform 0.15s; }
+    details[open] > summary::after { transform: rotate(225deg); margin-top: -0.1rem; }
+    .answer { padding: 0 1.1rem 0.9rem; }
+    .answer p:last-child, .answer ol:last-child, .answer ul:last-child { margin-bottom: 0; }
+    .answer ol, .answer ul { margin: 0 0 0.8rem; padding-left: 1.3rem; }
+    .answer li { margin: 0.25rem 0; }
+    .said { font-weight: 400; color: var(--ash); font-size: var(--step--1); display: block; margin-bottom: 0.1rem; }
+
+    /* ---- terpene table ---- */
+    .table-wrap { overflow-x: auto; border: 1px solid var(--hairline); border-radius: 12px; background: var(--glaze); margin: 0.4rem 0 1rem; }
+    table { border-collapse: collapse; width: 100%; min-width: 34rem; font-size: 0.95rem; }
+    caption { text-align: left; padding: 0.75rem 1rem 0.2rem; color: var(--ash); font-size: var(--step--1); }
+    th, td { text-align: left; vertical-align: top; padding: 0.6rem 1rem; border-top: 1px solid var(--hairline); }
+    thead th { border-top: 0; font-size: var(--step--1); color: var(--ash); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+    tbody th { font-family: var(--font-display); font-weight: 650; white-space: nowrap; }
+    td.bp { white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+    /* ---- footer ---- */
+    .foot { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--hairline); color: var(--ash); font-size: var(--step--1); }
+    .foot p { margin: 0 0 0.5rem; }
+
+    @media (max-width: 40rem) {
+      .toc { grid-template-columns: 1fr; }
+      .top { flex-wrap: wrap; }
+    }
+    @media (prefers-reduced-motion: reduce) { summary::after { transition: none; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a class="brand" href="./">
+        <img src="favicon.svg" alt="">
+        Peak Pro Control
+      </a>
+      <a class="back" href="./">&larr; back to the app</a>
+    </div>
+
+    <div class="title">
+      <h1>Help &amp; FAQ</h1>
+      <a class="ver-badge" data-app-version href="https://github.com/magikh0e/puffco-peak-control/blob/main/CHANGELOG.md" rel="noopener" title="What's new in each version">changelog</a>
+    </div>
+    <p class="lede">Peak Pro Control runs a <strong>Puffco Peak Pro</strong> from a browser tab over
+      Bluetooth, with no app to install and no account. This page covers what you need, how to
+      connect the first time, what each part of the app does, and what to do when a connection
+      fails. For heat settings by dab style, see the <a href="temps.html">dab temperature guide</a>.</p>
+
+    <nav class="toc" aria-label="On this page">
+      <div>
+        <h2>On this page</h2>
+        <ul>
+          <li><a href="#before">Before you start</a></li>
+          <li><a href="#connect">Connect for the first time</a></li>
+          <li><a href="#app">The app, part by part</a></li>
+          <li><a href="#trouble">When it won't connect</a></li>
+          <li><a href="#terpenes">Terpenes and temperature</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>FAQ</h2>
+        <ul class="toc-faq">
+          <li><a href="#faq-demo">Can I try it without a Peak Pro?</a></li>
+          <li><a href="#faq-data">Do I need an account? Where are my profiles kept?</a></li>
+          <li><a href="#faq-collect">Does the site collect anything?</a></li>
+          <li><a href="#faq-phone">Can I use it and the Puffco app at the same time?</a></li>
+          <li><a href="#faq-drop">What happens if the page disconnects while heating?</a></li>
+          <li><a href="#faq-devices">Which devices and firmware work?</a></li>
+          <li><a href="#faq-ha">Can I control it from Home Assistant?</a></li>
+          <li><a href="#faq-safe">Is it safe?</a></li>
+          <li><a href="#faq-bug">Found a bug?</a></li>
+          <li><a href="#faq-official">Is this made by Puffco?</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <section id="before" aria-labelledby="before-h">
+      <h2 id="before-h">Before you start</h2>
+      <ul class="needs">
+        <li><strong>Chrome or Edge.</strong> On a computer, or Chrome on an Android phone. iPhone,
+          iPad, Safari and Firefox don't support Web Bluetooth, so the page can't connect from them.
+          It has been tested with Chrome on Windows 11; other systems should work but haven't been
+          tried yet.</li>
+        <li><strong>A Peak Pro on current firmware.</strong> Firmware older than <code>AB</code>
+          uses a different Bluetooth layout, and the app tells you if it finds one. Update it with
+          the Puffco app first.</li>
+        <li><strong>One connection at a time.</strong> The Peak Pro talks to one thing at once.
+          Close the Puffco app on your phone, or turn off the phone's Bluetooth, before you
+          connect.</li>
+        <li><strong>Close by.</strong> It works within Bluetooth range of the device. It isn't remote
+          control over the internet.</li>
+        <li><strong>A paired computer.</strong> The Peak Pro only answers over an encrypted link, so
+          your computer has to pair with it once. The next section covers that.</li>
+      </ul>
+    </section>
+
+    <section id="connect" aria-labelledby="connect-h">
+      <h2 id="connect-h">Connect for the first time</h2>
+      <ol class="steps">
+        <li>Close the Puffco app on your phone.</li>
+        <li>Put the Peak Pro in <strong>pairing mode</strong>: hold the button until the logo glows
+          blue. It turns off and back on before the blue light appears.</li>
+        <li>Open <a href="./">the app</a>, press <strong>Connect</strong>, pick the Peak Pro in
+          Chrome's list, and press <strong>Pair</strong>.</li>
+        <li>The line under the device name shows each step: Connecting, Pairing, Unlocking. While it
+          says <em>Pairing (… s left)</em>, accept any prompt from Chrome or Windows. It waits up to
+          30 seconds.</li>
+        <li>When it says <strong>Connected</strong>, the ring shows the live temperature and the tabs
+          appear below it.</li>
+      </ol>
+      <p>After the first time, Connect works without pairing mode. Pairing a computer may mean the
+        Puffco app on your phone has to pair again the next time you use it.</p>
+      <div class="note">
+        <p class="note-title">Pairing on Windows</p>
+        <p>Windows Settings may not list the Peak Pro at all. If the app says this computer isn't
+          paired, the pairing didn't happen at the system level. In testing, what worked was
+          Windows' confirm-only custom pairing; the
+          <a href="https://github.com/magikh0e/puffco-peak-control#pair-the-device-with-your-computer-first" rel="noopener">README's pairing section</a>
+          has the details. If Windows keeps saying a pairing is already in progress, restart the
+          computer and try again.</p>
+      </div>
+    </section>
+
+    <section id="app" aria-labelledby="app-h">
+      <h2 id="app-h">The app, part by part</h2>
+      <div class="parts">
+        <article class="part">
+          <h3>The ring</h3>
+          <p>The big number is the heater's live temperature. Under it, the device's state:
+            <em>Idle</em>, <em>Heating to 545°F</em>, <em>Ready</em>, <em>Cooling down</em> or
+            <em>Asleep</em>. During a heat cycle the ring fills as each stage runs, and it glows in
+            the light color of the profile in use.</p>
+        </article>
+        <article class="part">
+          <h3>Heating</h3>
+          <p>Pick one of the four profiles under <strong>Heat profile</strong>, then press
+            <strong>Heat with</strong> and the profile's name. While it heats:</p>
+          <ul>
+            <li><strong>Stop</strong> ends the heat cycle.</li>
+            <li><strong>+10°F</strong> (or +5°C) raises the target, and <strong>+10 s</strong> adds
+              time.</li>
+            <li>Target, Preheat or Time left, Battery and Chamber show below.</li>
+          </ul>
+          <p>The profile buttons are locked until the heat cycle ends.</p>
+        </article>
+        <article class="part">
+          <h3>Profiles tab</h3>
+          <p>Edit each of the four profiles and press <strong>Save</strong> to write it to the
+            device. The device's limits apply:</p>
+          <ul>
+            <li>Name: up to 31 characters.</li>
+            <li>Temperature: 400–644°F (204–340°C).</li>
+            <li>Duration: 15–120 seconds.</li>
+            <li>Boost: adds 1–36°F (1–20°C) for 1–60 seconds.</li>
+            <li>Light color: if a profile uses one of the device's animated lights, the field says
+              so.</li>
+          </ul>
+          <p><strong>Copy to My profiles</strong> keeps a copy on the Library tab.</p>
+        </article>
+        <article class="part">
+          <h3>Library tab</h3>
+          <ul>
+            <li><strong>Templates:</strong> 12 ready-made profiles and 4 sets of four, with
+              temperatures from the Cape Cod Cannabis and Leafly dabbing guides. Star one to add it
+              to Favorites.</li>
+            <li><strong>Build your own set of four:</strong> pick a lowest and highest temperature and
+              it spreads four profiles between them.</li>
+            <li><strong>My profiles:</strong> profiles saved in this browser, with
+              <strong>Back up</strong> and <strong>Restore</strong>.</li>
+          </ul>
+          <p>Loading puts a profile into one of the four slots. The profile it replaces is kept in
+            My profiles, unless it matches a template. Loading is off while the device heats.</p>
+        </article>
+        <article class="part">
+          <h3>Device tab</h3>
+          <ul>
+            <li><strong>Device name:</strong> up to 29 characters.</li>
+            <li><strong>Light brightness:</strong> 15–100%.</li>
+            <li><strong>Stealth mode:</strong> dims the lights while heating.</li>
+            <li><strong>Ready mode:</strong> picks which profile the device's ready mode uses, or
+              turns it off.</li>
+            <li><strong>Mood light:</strong> turns the light on in any color for two hours, or off.</li>
+            <li><strong>Turn off device:</strong> asks first. Press the device's button to wake it
+              again.</li>
+          </ul>
+          <p>A setting this firmware doesn't have is greyed out.</p>
+        </article>
+        <article class="part">
+          <h3>Stats tab</h3>
+          <p>Total dabs, dabs per day, dabs left on this charge, a trip counter, total heating time,
+            battery and charging details, the chamber, and device details such as the firmware
+            build. <strong>Refresh</strong> reads them again.</p>
+        </article>
+        <article class="part">
+          <h3>Protocol log tab</h3>
+          <p>Every Bluetooth exchange with the device. <strong>Show polling reads</strong> adds the
+            regular status reads. <strong>Copy log</strong> copies it for a bug report.</p>
+        </article>
+        <article class="part">
+          <h3>°F and °C</h3>
+          <p>The switch at the top right changes every temperature in the app, including the
+            profile editor and the templates. The browser remembers your choice.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="trouble" aria-labelledby="trouble-h">
+      <h2 id="trouble-h">When it won't connect</h2>
+      <p>When a connection fails, the app shows what went wrong and what to try. Here are the same
+        messages with a little more detail.</p>
+      <div class="qs">
+        <details id="trouble-list">
+          <summary>The Peak Pro isn't in Chrome's list</summary>
+          <div class="answer">
+            <ul>
+              <li>Wake the device with its button. Asleep, it doesn't show up.</li>
+              <li>Close the Puffco app on your phone. While the phone is connected, the device
+                doesn't show up anywhere else.</li>
+              <li>Move closer, and check that Bluetooth is on for the computer.</li>
+              <li>Connecting to this computer for the first time? Put it in pairing mode (hold the
+                button until the logo glows blue) and press Connect again.</li>
+            </ul>
+          </div>
+        </details>
+        <details id="trouble-refused">
+          <summary><span class="said">The app says:</span>The Peak Pro refused the connection</summary>
+          <div class="answer">
+            <p>A device that hasn't paired with this computer only accepts a new connection while it
+              is in pairing mode.</p>
+            <ol>
+              <li>Close the Puffco app on your phone, or turn off Bluetooth on the phone.</li>
+              <li>Hold the device button until the logo glows blue.</li>
+              <li>Press Connect and pick the device again while it is glowing blue.</li>
+              <li>If Windows asks to pair the device, allow it.</li>
+              <li>Still failing? Remove the Peak Pro under Windows Settings &gt; Bluetooth &amp;
+                devices, then try again.</li>
+            </ol>
+          </div>
+        </details>
+        <details id="trouble-not-paired">
+          <summary><span class="said">The app says:</span>This computer isn't paired with the Peak Pro, so it won't answer</summary>
+          <div class="answer">
+            <p>Chrome connected, but the device ignores everything until the link is encrypted, and
+              that needs a pairing at the system level.</p>
+            <ol>
+              <li>Close the app's tab and the Puffco app on your phone.</li>
+              <li>Put the device in pairing mode (hold the button until the logo glows blue).</li>
+              <li>Pair it with this computer from your system's Bluetooth settings. On Windows, see
+                <a href="#connect">Pairing on Windows</a> above.</li>
+              <li>If Windows reports a pairing already in progress, restart the computer and pair
+                again.</li>
+              <li>Once it is paired, come back and press Connect.</li>
+            </ol>
+          </div>
+        </details>
+        <details id="trouble-dropped">
+          <summary><span class="said">The app says:</span>The Peak Pro dropped the connection during setup</summary>
+          <div class="answer">
+            <ol>
+              <li>Wait a few seconds and press Connect again.</li>
+              <li>If it keeps dropping, put the device in pairing mode and connect again.</li>
+              <li>Still stuck? Remove the Peak Pro under Windows Settings &gt; Bluetooth &amp;
+                devices, then pair again.</li>
+            </ol>
+          </div>
+        </details>
+        <details id="trouble-silent">
+          <summary><span class="said">The app says:</span>The Peak Pro connected but didn't answer</summary>
+          <div class="answer">
+            <ol>
+              <li>Remove the Peak Pro under Windows Settings &gt; Bluetooth &amp; devices if it is
+                listed.</li>
+              <li>Put the device in pairing mode and press Connect.</li>
+              <li>Accept any pairing prompt from Chrome or Windows.</li>
+              <li>Still stuck? Press <strong>Copy technical details</strong> under the message and
+                <a href="#faq-bug">report it</a>.</li>
+            </ol>
+          </div>
+        </details>
+        <details id="trouble-firmware">
+          <summary><span class="said">The app says:</span>This Peak Pro is on older firmware</summary>
+          <div class="answer">
+            <p>Firmware older than <code>AB</code> uses a different Bluetooth layout that this app
+              doesn't support. Update the device with the Puffco app, then connect again.</p>
+          </div>
+        </details>
+        <details id="trouble-browser">
+          <summary><span class="said">The app says:</span>This browser can't use Bluetooth</summary>
+          <div class="answer">
+            <p>Open the page in Chrome or Edge on a computer, or Chrome on an Android phone. If you're
+              already in one of those, check that the computer or phone has Bluetooth turned on.</p>
+          </div>
+        </details>
+        <details id="trouble-greyed">
+          <summary>Connected, but a button or setting is greyed out</summary>
+          <div class="answer">
+            <ul>
+              <li>Loading templates and profiles is off while the device heats. Stop the heat cycle,
+                or wait for it to end.</li>
+              <li>A setting the device's firmware doesn't have is greyed out on the Device tab.</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section id="terpenes" aria-labelledby="terpenes-h">
+      <h2 id="terpenes-h">Terpenes and temperature</h2>
+      <p>Terpenes carry a concentrate's flavor and smell, and they boil off before the
+        cannabinoids do. Five of them make up most of what you taste in cannabis:</p>
+      <div class="table-wrap">
+        <table>
+          <caption>The big five terpenes, from lowest boiling point to highest</caption>
+          <thead>
+            <tr><th scope="col">Terpene</th><th scope="col">Boils at</th><th scope="col">Aroma</th><th scope="col">Reported effects</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Caryophyllene</th><td class="bp">266°F (130°C)</td><td>Black pepper, spice, wood</td><td>Calming; the one terpene that also binds to CB2 receptors</td></tr>
+            <tr><th scope="row">Pinene</th><td class="bp">311°F (155°C)</td><td>Fresh pine, herbs</td><td>Alertness, focus, memory</td></tr>
+            <tr><th scope="row">Myrcene</th><td class="bp">334°F (168°C)</td><td>Earthy, musky, ripe mango</td><td>Relaxing and sedating</td></tr>
+            <tr><th scope="row">Limonene</th><td class="bp">349°F (176°C)</td><td>Citrus, lemon and orange rind</td><td>Uplifting, energizing, stress relief</td></tr>
+            <tr><th scope="row">Linalool</th><td class="bp">388°F (198°C)</td><td>Floral, lavender</td><td>Calming, eases anxiety</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>All five boil below the Peak Pro's lowest setting of 400°F (204°C), so every heat setting
+        vaporizes them. The cooler the setting, the more of their flavor reaches you before it
+        scorches. That's why the flavor templates sit at the low end and the cloud-chasing ones at
+        the top. Terpenes also evaporate slowly at room temperature, so keep concentrates sealed,
+        cool and out of the light.</p>
+      <p>The boiling points match the <a href="temps.html">dab temperature guide</a>, which also
+        lists THC, CBD and more terpenes. For more on what each terpene does and how growers
+        preserve them, read
+        <a href="https://tropicalrootsmaui.com/KnowledgeBase/cannabis-grow-guides/cannabis-terpene-guide.html" rel="noopener">Tropical Roots Maui's guide to the big five terpenes</a>.</p>
+    </section>
+
+    <section id="faq" aria-labelledby="faq-h">
+      <h2 id="faq-h">FAQ</h2>
+      <div class="qs">
+        <details id="faq-demo">
+          <summary>Can I try it without a Peak Pro?</summary>
+          <div class="answer">
+            <p>Yes. Open <a href="./?demo">the demo</a> (<code>?demo</code> on the address) and press
+              <strong>Connect demo</strong>. It runs the real app against a simulated Peak Pro that
+              heats, cools and saves profiles. Other demo modes act out connection problems:
+              <code>?demo=unpaired</code> (connection refused), <code>?demo=notpaired</code> (no
+              pairing), <code>?demo=pairing</code> (pairing completes after a few tries) and
+              <code>?demo=stuck</code> (a read that never answers).</p>
+          </div>
+        </details>
+        <details id="faq-data">
+          <summary>Do I need an account? Where are my profiles kept?</summary>
+          <div class="answer">
+            <p>No account. The four profiles and the device settings live on the Peak Pro itself.
+              My profiles, favorites and your °F/°C choice are saved in this browser only, so they
+              don't follow you to another computer or browser. Use <strong>Back up</strong> on the
+              Library tab before clearing site data or switching computers, and
+              <strong>Restore</strong> to bring them back.</p>
+          </div>
+        </details>
+        <details id="faq-collect">
+          <summary>Does the site collect anything?</summary>
+          <div class="answer">
+            <p>No. There are no analytics, no cookies and no server behind the page: it's static
+              files on GitHub Pages, and the Bluetooth traffic goes straight from your browser to the
+              device. Like any website, the host (GitHub) and the font service (Google Fonts) see
+              the usual request details, such as your IP address.</p>
+          </div>
+        </details>
+        <details id="faq-phone">
+          <summary>Can I use it and the Puffco app at the same time?</summary>
+          <div class="answer">
+            <p>No. The Peak Pro takes one connection at a time. Close the Puffco app (or turn off
+              the phone's Bluetooth) before connecting here, and press <strong>Disconnect</strong>
+              here before going back to the phone.</p>
+          </div>
+        </details>
+        <details id="faq-drop">
+          <summary>What happens if the page disconnects while heating?</summary>
+          <div class="answer">
+            <p>The heat cycle runs on the device, so it carries on and ends on its own timer. The
+              app shows <em>Disconnected</em>; press <strong>Connect</strong> to pick up again.</p>
+          </div>
+        </details>
+        <details id="faq-devices">
+          <summary>Which devices and firmware work?</summary>
+          <div class="answer">
+            <p>The Peak Pro, on firmware <code>AB</code> or newer. Everything in the app has been
+              confirmed on a real Peak Pro (firmware build <code>5652c02</code>) from Chrome on
+              Windows 11. Other Puffco devices haven't been tested.</p>
+          </div>
+        </details>
+        <details id="faq-ha">
+          <summary>Can I control it from Home Assistant?</summary>
+          <div class="answer">
+            <p>Yes, with <a href="https://github.com/magikh0e/ha-puffco-peak" rel="noopener">ha-puffco-peak</a>,
+              a HACS integration that runs the same device from Home Assistant over Bluetooth,
+              locally. Only one of them can be connected at a time.</p>
+          </div>
+        </details>
+        <details id="faq-safe">
+          <summary>Is it safe?</summary>
+          <div class="answer">
+            <p>It uses the same Bluetooth controls as the Puffco app and keeps every value within
+              the device's limits. Nothing is permanent: no firmware is flashed and nothing is reset,
+              and you can change any setting back here, on the device or in the Puffco app.
+              Turning the device off asks first.</p>
+            <p>It's still a heater. Don't leave it heating unattended.</p>
+          </div>
+        </details>
+        <details id="faq-bug">
+          <summary>Found a bug?</summary>
+          <div class="answer">
+            <p><a data-report-link href="https://github.com/magikh0e/puffco-peak-control/issues/new?template=problem.yml" target="_blank" rel="noopener">Report a problem</a>
+              (also at the bottom of the app) opens a bug form on GitHub with the app version filled
+              in. It helps to say whether the <a href="#faq-demo">demo</a> does the same thing, and
+              to paste the <strong>Copy technical details</strong> text from a connection error or
+              the <strong>Copy log</strong> text from the Protocol log tab. Posting needs a GitHub
+              account.</p>
+          </div>
+        </details>
+        <details id="faq-official">
+          <summary>Is this made by Puffco?</summary>
+          <div class="answer">
+            <p>No. It's an independent, open-source project (GPL-3.0), not affiliated with Puffco.
+              The Bluetooth protocol was worked out from my own device; the
+              <a href="https://github.com/magikh0e/puffco-peak-control" rel="noopener">source</a>
+              credits the groundwork. Use it only with a device you own.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <p><a href="./">Peak Pro Control</a> &middot; <a href="temps.html">dab temperature guide</a> &middot;
+        <a href="https://github.com/magikh0e/puffco-peak-control" rel="noopener">source</a> &middot;
+        <a href="https://github.com/magikh0e/puffco-peak-control/blob/main/CHANGELOG.md" rel="noopener">changelog</a></p>
+      <p>Not affiliated with Puffco. For use with a device you own. Know your local laws.</p>
+    </footer>
+  </div>
+
+  <script type="module">
+    import { showVersion } from './js/version.js?v=14';
+    showVersion();
+
+    // Open the question a link points at (#faq-… or #trouble-…), on load and
+    // when the address changes, so shared links land on an open answer.
+    function openTarget() {
+      const el = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      if (!el || el.tagName !== 'DETAILS') return;
+      el.open = true;
+      el.scrollIntoView({ block: 'start' });
+      // The web fonts can shift the layout after that first scroll; land on it again.
+      document.fonts?.ready.then(() => el.scrollIntoView({ block: 'start' }));
+    }
+    addEventListener('hashchange', openTarget);
+    openTarget();
+  </script>
+</body>
+</html>

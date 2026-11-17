@@ -5,9 +5,17 @@ All notable changes to Peak Pro Control ([puffco.magikh0e.com](https://puffco.ma
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the app uses
 [Semantic Versioning](https://semver.org/): **major** for changes that break saved profiles or
 how the app is used, **minor** for new features, **patch** for fixes and polish. The version
-shown at the bottom of the app comes from `VERSION` in `js/app.js`.
+shown in the app comes from `VERSION` in `js/version.js`.
 
 ## [Unreleased]
+
+### Added
+
+- A Help & FAQ page: what you need, connecting and pairing for the first time, what each part of
+  the app does, what to do with each connection error, the big five terpenes and their boiling
+  points, and answers to common questions. The app links to it from the start screen, from
+  connection errors and from the footer.
+- The dab temperature guide links to the help page and to Tropical Roots Maui's terpene guide.
 
 ## [1.1.0] - 2026-11-16
 
