@@ -9,6 +9,8 @@ shown in the app comes from `VERSION` in `js/version.js`.
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-11-16
+
 ### Added
 
 - The start screen links to the demo ("No Peak Pro nearby? Try the demo"), and so does the
@@ -81,7 +83,8 @@ confirmed on a real Peak Pro (firmware build `5652c02`) from Chrome on Windows 1
 - A version number at the bottom of the page linking to this changelog. The "report a problem"
   link fills the version into the bug form.
 
-[Unreleased]: https://github.com/magikh0e/puffco-peak-control/compare/v1.2.1...HEAD
+[Unreleased]: https://github.com/magikh0e/puffco-peak-control/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/magikh0e/puffco-peak-control/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/magikh0e/puffco-peak-control/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/magikh0e/puffco-peak-control/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/magikh0e/puffco-peak-control/compare/v1.0.0...v1.1.0

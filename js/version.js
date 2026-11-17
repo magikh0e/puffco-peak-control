@@ -1,6 +1,6 @@
 // The release version, shared by the app and the help page. Bump it together
 // with a CHANGELOG.md entry (see the README, "Releasing a version").
-export const VERSION = '1.2.1';
+export const VERSION = '1.3.0';
 
 // Fill in version badges and links ([data-app-version]) and add the version to
 // "report a problem" links ([data-report-link]), which GitHub's bug form reads
