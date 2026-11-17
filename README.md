@@ -93,13 +93,9 @@ after a few tries) and `?demo=stuck` (a read that never answers).
 
 ## Status
 
-Connects to a real Peak Pro (firmware build `5652c02`) from Chrome on
-Windows 11 once the computer is paired. Verified on the device: pairing, the
-LORAX unlock, starting and stopping a heat cycle, +temperature and +time
-during a session, the mood light, live temperature, and reads of profiles,
-colors, brightness and device info. The remaining write actions (editing
-profiles, loading templates, brightness, stealth, ready mode, power off) follow
-the official app's code but haven't each been confirmed on hardware yet.
+Working. Connecting, bonding, live state, and the full control surface have
+been confirmed on a real Peak Pro (firmware build `5652c02`) from Chrome on
+Windows 11 once the computer is paired.
 
 Peak Pros on firmware older than `AB` use a different Bluetooth layout and
 aren't supported. The app says so if it finds one.

@@ -64,8 +64,10 @@ the app's source.
   (RGB, lumaAnim 1 = steady), then `/p/app/ltrn/cmd` = `01` (uint8), then
   `/p/app/ltrn/time` = 7200.0 (float32 seconds): the light comes on in the
   chosen color. `/p/app/ltrn/cmd` = `00` turns it off.
-- **Not yet verified on hardware:** profile edits, stealth, ready mode,
-  brightness writes, power off, and the event channel.
+- **Also confirmed through the web app:** profile edits, stealth, ready mode,
+  brightness writes and power off.
+- **Not yet characterized:** the event channel. The web app subscribes to it,
+  but hasn't been checked for what the device sends there.
 
 ## Connecting and bonding
 
