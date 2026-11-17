@@ -9,6 +9,8 @@ shown in the app comes from `VERSION` in `js/version.js`.
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-11-16
+
 ### Added
 
 - A Help & FAQ page: what you need, connecting and pairing for the first time, what each part of
@@ -57,6 +59,7 @@ confirmed on a real Peak Pro (firmware build `5652c02`) from Chrome on Windows 1
 - A version number at the bottom of the page linking to this changelog. The "report a problem"
   link fills the version into the bug form.
 
-[Unreleased]: https://github.com/magikh0e/puffco-peak-control/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/magikh0e/puffco-peak-control/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/magikh0e/puffco-peak-control/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/magikh0e/puffco-peak-control/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/magikh0e/puffco-peak-control/releases/tag/v1.0.0
