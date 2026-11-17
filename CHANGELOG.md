@@ -9,6 +9,11 @@ shown in the app comes from `VERSION` in `js/version.js`.
 
 ## [Unreleased]
 
+### Added
+
+- Caryophyllene oxide on the dab temperature guide's boiling points: about 535°F (280°C), an
+  estimate from Russ Hudson's *The Big Book of Terps*.
+
 ### Fixed
 
 - Caryophyllene's boiling point on the dab temperature guide and the help page is now 495°F
