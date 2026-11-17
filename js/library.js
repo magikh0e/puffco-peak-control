@@ -1,7 +1,7 @@
 // Heat-profile templates, and a library of profiles kept in this browser.
 // Loading one writes it into one of the Peak Pro's four profile slots; the
 // profile it replaces is kept in the library, so nothing is lost.
-import { LIMITS, cToF, fToC } from './device.js?v=11';
+import { LIMITS, cToF, fToC } from './device.js?v=12';
 
 export const SOURCES = [
   { name: 'Cape Cod Cannabis', url: 'https://capecodcannabis.com/the-ultimate-dabbing-temperature-guide/' },
