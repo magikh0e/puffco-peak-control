@@ -9,6 +9,12 @@ shown in the app comes from `VERSION` in `js/version.js`.
 
 ## [Unreleased]
 
+### Fixed
+
+- Caryophyllene's boiling point on the dab temperature guide and the help page is now 495°F
+  (257°C), its boiling point at normal air pressure. The 266°F (130°C) that many cannabis charts
+  repeat is its boiling point close to a vacuum.
+
 ## [1.2.0] - 2026-11-16
 
 ### Added
